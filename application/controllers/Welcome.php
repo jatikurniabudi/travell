@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
+	function __construct(){
+		parent::__construct();
+		$this->load->model('mcrud');
+		$this->load->helper('url');
+	}
 
 	/**
 	 * Index Page for this controller.
@@ -21,5 +26,22 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('welcome_message');
+	}
+
+	public function tambah_user()
+	{
+		$username = $this->input->post('username');
+		$fullname = $this->input->post('fullname');
+		$password = $this->input->post('password');
+		$level = $this->input->post('level');
+		$data = array(
+			'username'=>$username,
+			'fullname'=>$fullname,
+			'password'=>md5($password),
+			'level'=>$level
+		);
+		$this->mcrud->input_data($data, 'user');
+		redirect('Welcome');
+
 	}
 }

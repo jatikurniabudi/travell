@@ -44,4 +44,17 @@ class Welcome extends CI_Controller {
 		redirect('Welcome');
 
 	}
+
+	Public function data_user(){
+		$data['user']=$this->mcrud->tampil_data_user()->result();
+		$this->load->view('hehee', $data);
+
+	}
+
+	public function hapus_user($id){
+		$where=array('id'=>$id);
+		$this->mcrud->hapus_data($where,'user');
+		redirect('welcome/data_user');
+
+	}
 }
